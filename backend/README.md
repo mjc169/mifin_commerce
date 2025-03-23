@@ -1,62 +1,93 @@
-## E-commerce
+# E-commerce Backend API (Laravel 12.3.0)
 
-## Docker Setup
+This repository contains the backend API for an e-commerce application, built using the Laravel framework version 12.3.0.
 
-Considering you have docker already installed in your machine.
-
-Build and Run Docker services
-
-```
-docker-compose up -d --build
+```bash
+php artisan --version
+# Output: Laravel Framework 12.3.0
 ```
 
-This will download the images from the dockerfile and build it.
+## Prerequisites
 
-Please wait for a while for it to complete building, it may take a while for you to access the web page. You will usually see `502 Bad Gateway` status for NGINX.
+Before you begin, ensure you have the following installed:
 
-## Backend setup
+-   **PHP**: Version 8.2 - 8.4 (Required for Laravel 12)
+-   **Composer**: Version 2.8.6 or later (Recommended)
+-   **Docker Desktop**: Version 4.17.1 or later (Recommended for containerized development)
 
-1. Run `composer install` in the `backend` folder
+## Getting Started
 
+### Environment Configuration
+
+1.  **Copy `.env.example`:**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Create a `.env` file from the provided `.env.example` template.
+
+2.  **Configure `.env` Variables:**
+
+    Open the `.env` file and update the database connection details:
+
+    ```
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=mifin_commerce
+    DB_USERNAME=root
+    DB_PASSWORD=localhost_db_password
+    ```
+
+    **Note:** Ensure these values match your Docker MySQL service configuration.
+
+### Composer Docker Preparation (Convenience Script)
+
+The `composer docker-prep` script automates the Docker setup process:
+
+```bash
+composer docker-prep
 ```
-/var/www/backend: composer install
-```
 
-2. Run seeders to start testing locally.
+We have custom composer script created to simplify the following process below.
 
-```
-php artisan migrate:fresh --seed
-```
+### Detailed Docker Setup
 
-## Frontend setup
+Using Docker simplifies setup and ensures a consistent environment. If you have Docker installed, follow these steps:
 
-1. Considering you have Node Js and NPM already installed.
-   Run npm install to download packages used by the project. See `package.json` for dependencies.
+1.  **Build and Start Containers:**
 
-```
-/var/www/oph-stats: npm install
-```
+    ```bash
+    docker-compose up -d --build
+    ```
 
-3. Compile Scripts `npm run dev `
+    This command builds the Docker images (if they don't exist) and starts the containers in detached mode (`-d`).
 
-```
-/var/www/oph-stats:/var/www/html# npm run dev
-```
+2.  **Install Dependencies and Dump Autoload:**
 
-You can access the Backend API via:
+    ```bash
+    docker compose exec -T php composer install && docker compose exec -T php composer dumpautoload
+    ```
 
-```
-http://127.0.0.1:8000/
-```
+    This installs the PHP dependencies using Composer within the PHP container and regenerates the autoloader.
 
-## Debugging:
+3.  **Run Database Migrations and Seed Data:**
 
-2. When MYSQL/Database related issue, connection refuse, etc.
+    ```bash
+    docker compose exec -T php php artisan migrate:fresh --seed
+    ```
 
--   Check if there is no other application using the same `DB_PORT:3306`,
--   Also check if you have `.env` file properly configured in the project
--   It also worth emptying `.docker/mysql/data` folder files for a fresh start.
+    This command runs fresh database migrations and populates the database with seed data for a development environment.
 
-### .env
+### Debugging
 
-Locate `.env.example` configuration from the `root` folder and save it as `.env` and adjust the database host, database, password, port accordingly
+-   **Database Connection Issues (e.g., "Connection Refused"):**
+    -   Ensure that the database server is running.
+    -   Verify that the `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` settings in your `.env` file are correct.
+    -   Check if any other applications are using the same database port (e.g., 3306).
+-   **General Troubleshooting:**
+    -   Check your framework's log files for error messages.
+    -   Ensure all required dependencies are installed.
+    -   Restart your Docker containers or web server after making configuration changes.
+    -   Check your PHP version, sometimes your local machine's PHP version and backend Docker PHP version is being mixed up, check which PHP version is being used
+    -   Check .docker/app/php.dockerfile is running correctly by reading the PHP Container Logs
