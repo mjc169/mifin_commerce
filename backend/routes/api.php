@@ -1,19 +1,16 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\ForceJsonAccept;
 
 Route::get('/', function () {
     return "Welcome to our API. Please check the `openapi.yaml` for the list of endpoints you can use. ";
 });
 
+Route::post('/login', [AuthController::class, 'login']);
 
-//Route::get('/user', function (Request $request) {
-//    return $request->user();
-//})->middleware('auth:sanctum');
-
-Route::middleware(ForceJsonAccept::class)->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/user', UserController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
