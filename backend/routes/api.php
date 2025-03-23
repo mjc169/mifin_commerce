@@ -11,6 +11,6 @@ Route::get('/', function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/user', UserController::class);
+    Route::get('/userInformation', [UserController::class, 'getUserInformation']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });

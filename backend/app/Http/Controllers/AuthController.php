@@ -15,17 +15,14 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Find the user by email.
         $user = Models\User::where('email', $request->email)->first();
 
         if (!$user) {
-            // User not found.
             return response()->json(['message' => 'User not found'], 404);
         }
 
         // Verify the password.
         if (!Hash::check($request->password, $user->password)) {
-            // Invalid password.
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
