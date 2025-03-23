@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+
+    #Mysql Service
+    mysql:
+        image: mysql:5.7
+        container_name: commerce_mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3305:3306"
+        environment:
+            MYSQL_DATABASE: mifin_commerce
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+            MYSQL_ROOT_PASSWORD: localhost_db_password
+        networks:
+            - laravel_commerce
+  
+    #PHP service
+    php:
+        depends_on:
+            - mysql
+        entrypoint: /var/www/html/docker-php-entrypoint.sh development
+        build:
+            context: .
+            dockerfile: ./.docker/app/php.dockerfile
+        container_name: commerce_php
+        volumes:
+            - ./:/var/www/html
+            - ./storage/logs:/var/log/commerce
+        ports:
+            - "9000:8000"
+        networks:
+            - laravel_commerce
+
+    #nginx service
+    webserver:
+        image: nginx:stable-alpine
+        container_name: commerce_nginx
+        restart: unless-stopped
+        ports:
+            - "8085:80"
+        volumes:
+            - .:/var/www/html
+            - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php
+            - mysql
+        networks:
+            - laravel_commerce
+            
+
+
+#Docker Networks
+networks:
+    laravel_commerce:

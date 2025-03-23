@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    protected $customer;
+    protected $user;
     public function __construct()
     {
-        $this->customer = new User();
+        $this->user = new User();
     }
 
     public function index()
     {
-        return $this->customer->all();
+        return $this->user->all();
     }
 
     /**
@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->customer->create($request->all());
+        return $this->user->create($request->all());
     }
 
     /**
@@ -31,8 +31,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $customer = $this->customer->find($id);
-        return $customer;
+        $user = $this->user->find($id);
+        return $user;
     }
 
     /**
@@ -40,9 +40,9 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $customer = $this->customer->find($id);
-        $customer->update($request->all());
-        return $customer;
+        $user = $this->user->find($id);
+        $user->update($request->all());
+        return $user;
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $customer = $this->customer->find($id);
-        return $customer->delete();
+        $user = $this->user->find($id);
+        return $user->delete();
     }
 }
