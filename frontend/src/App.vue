@@ -18,11 +18,12 @@ import { RouterLink, RouterView } from 'vue-router'
                 <RouterLink class="nav-link active" to="/">Home</RouterLink>
               </li>
               <li class="nav-item">
-                <RouterLink class="nav-link" to="/about">About Us</RouterLink>
-              </li>
-              <li class="nav-item">
                 <RouterLink class="nav-link" to="/products">Products</RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/myCart">My Cart</RouterLink>
+              </li>
+              
             </ul>
           </div>
         </div>

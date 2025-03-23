@@ -2,10 +2,13 @@
   <div class="product">
     <div class="card">
       <div class="card-header">
-        <h4 class="text-success">Products  </h4>
+        <h4 class="text-success">My Cart 
+          <button class="btn btn-danger float-end mx-2">Empty Cart</button>
+          <button class="btn btn-primary float-end mx-2">Proceed to Checkout</button>
+          
+        </h4>
       </div>
       <div class="card-body">
-          <div class="float-end m-2">Total of Nth products</div>
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -13,6 +16,7 @@
                 <th>Image</th>
                 <th>Product Name</th>
                 <th>Price</th>
+                <th>Qty</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -27,14 +31,14 @@
 
 <script>
   export default {
-    name: 'products',
+    name: 'myCart',
     data() {
       return {
-        products: []
+        cart: []
       }
     },
     mounted(){
-      console.log("I am here products");
+      console.log("I am here cart");
     }
   }
 </script>
