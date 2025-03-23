@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('image_url')->nullable(); // Image URL, can be null
+            $table->decimal('price', 10, 2); // Price, 10 total digits, 2 decimal places
             $table->timestamps();
         });
     }

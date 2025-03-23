@@ -60,6 +60,12 @@
         "docker-prep": [
             "docker-compose stop && docker-compose up -d --build && docker compose exec -T php composer install && docker compose exec -T php composer dumpautoload"
         ],
+        "migrate": [
+            "docker compose exec -T php ./artisan migrate"
+        ],
+        "rollback": [
+            "docker compose exec -T php ./artisan rollback"
+        ],
         "seed": [
             "docker compose exec -T php ./artisan migrate:fresh --seed"
         ],

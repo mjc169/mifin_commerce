@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,12 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Mifin User',
-            'email' => 'mifin@example.com',
-            'balance' => 1000.00
+        $this->call([
+            UserSeeder::class,
+            ProductSeeder::class,
+            // Add other seeders here
         ]);
-
-        User::factory(9)->create();
     }
 }
