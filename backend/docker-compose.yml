@@ -30,8 +30,6 @@ services:
         volumes:
             - ./:/var/www/html
             - ./storage/logs:/var/log/commerce
-        ports:
-            - "9000:8000"
         networks:
             - laravel_commerce
 
@@ -41,7 +39,7 @@ services:
         container_name: commerce_nginx
         restart: unless-stopped
         ports:
-            - "8085:80"
+            - "8000:80"
         volumes:
             - .:/var/www/html
             - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -50,8 +48,6 @@ services:
             - mysql
         networks:
             - laravel_commerce
-            
-
 
 #Docker Networks
 networks:

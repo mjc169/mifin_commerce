@@ -62,6 +62,9 @@
         ],
         "seed": [
             "docker compose exec -T php ./artisan migrate:fresh --seed"
+        ],
+        "test": [
+            "docker compose exec -T php /var/www/html/artisan test --filter"
         ]
     },
     "extra": {
