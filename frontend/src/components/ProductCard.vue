@@ -14,10 +14,10 @@
 </template>
 
 <script setup>
-defineProps({
-	product: {
-		type: Object,
-		required: true,
-	},
-});
+	defineProps({
+		product: {
+			type: Object,
+			required: true,
+		},
+	});
 </script>

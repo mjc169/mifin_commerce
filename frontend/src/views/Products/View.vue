@@ -9,9 +9,8 @@
       </div>
       <div class="card-body">
         <div v-if="loading">Loading...</div>
-        <div v-if="error">Error: {{ error.message }}</div>
-
-        <div>
+        <div v-else-if="error" class="text-danger">Error: {{ error.message }}</div>
+        <div v-else>
           <ProductList :products="formattedProducts" />
         </div>
       </div>
@@ -20,22 +19,22 @@
 </template>
 
 <script setup>
-import { usePostsStore } from "@/stores/posts";
-import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
-import ProductList from '@/components/ProductList.vue';
+  import { useProductsStore } from "@/stores/products";
+  import { storeToRefs } from 'pinia';
+  import { computed } from 'vue';
+  import ProductList from '@/components/ProductList.vue';
 
-const postsStore = usePostsStore();
-const { posts, loading, error } = storeToRefs(postsStore);
+  const productsStore = useProductsStore();
+  const { products, loading, error } = storeToRefs(productsStore);
 
-// Computed property for product count
-const productCount = computed(() => posts.value.length);
+  // Computed property for product count
+  const productCount = computed(() => products.value.length);
 
-// Computed property for formatted product data
-const formattedProducts = computed(() => {
-  return posts.value.map(post => ({
-    ...post,
-    formattedPrice: `$${parseInt(post.price).toFixed(2)}`,
-  }));
-});
+  // Computed property for formatted product data
+  const formattedProducts = computed(() => {
+    return products.value.map(product => ({
+      ...product,
+      formattedPrice: `$${parseInt(product.price).toFixed(2)}`,
+    }));
+  });
 </script>

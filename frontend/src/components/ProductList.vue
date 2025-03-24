@@ -17,7 +17,7 @@
   defineProps({
     products: {
       type: Array,
-      required: true,
+      required: true
     },
   });
 </script>

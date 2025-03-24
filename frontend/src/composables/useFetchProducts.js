@@ -1,17 +1,17 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export function useFetchPosts() {
-    const posts = ref([]);
+export function useFetchProducts() {
+    const products = ref([]);
     const loading = ref(false);
     const error = ref(null);
   
-    const fetchPosts = async () => {
+    const fetchProducts = async () => {
       loading.value = true;
       error.value = null;
       try {
         const response = await axios.get('/api/products');
-        posts.value = response.data;
+        products.value = response.data;
       } catch (err) {
         error.value = err;
       } finally {
@@ -19,7 +19,7 @@ export function useFetchPosts() {
       }
     };
   
-    onMounted(fetchPosts); // Fetch posts when the store is mounted
+    onMounted(fetchProducts); // Fetch products when the store is mounted
   
-    return { posts, loading, error };
+    return { products, loading, error };
 }
