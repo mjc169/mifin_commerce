@@ -1,0 +1,32 @@
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+export function useFetchCart() {
+    const cart = ref([]);
+    const loading = ref(false);
+    const error = ref(null);
+  
+    const fetchCart = async () => {
+      loading.value = true;
+      error.value = null;
+      try {
+        const token = "1|Jy2Vdg8rFMq2CYXfTYvdfjSDaVC5j757RraIffhqad83deb6"; // TODO: create a login feature
+
+        const response = await axios.get('/api/cart', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        cart.value = response.data;
+      } catch (err) {
+        error.value = err;
+      } finally {
+        loading.value = false;
+      }
+    };
+  
+    onMounted(fetchCart); // Fetch cart when the store is mounted
+  
+    return { cart, loading, error };
+}
