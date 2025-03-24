@@ -18,7 +18,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->words(2, true),
-            'image_url' => 'https://picsum.photos/300/300',
+            'image_url' => 'https://picsum.photos/300/300?t=' . rand(),
             'price' => fake()->randomFloat(2, 1, 1000)
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models;
 
 class ProductController extends Controller
 {
@@ -11,10 +11,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //show all products
+        return Models\Product::all();
     }
 
-    public function show(Product $product)
+    public function show(Models\Product $product)
     {
         //product details per id
     }
