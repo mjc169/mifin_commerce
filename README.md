@@ -44,10 +44,6 @@ API endpoint details can be found in the project's OpenAPI specification file.
 
 The database structure is defined within the Laravel migrations located in the `database/migrations` directory of the backend.
 
-## Deployment
-
-[Provide instructions on how to deploy the application to a production environment. Include steps for configuring the web server, database, and environment variables. If docker is used, provide docker related deployment instructions.]
-
 ## Contributing
 
 Thank you for your interest in contributing to this project! I'd like to extend a special thanks to my co-developers for their invaluable guidance and support throughout the development process. Their expertise and mentorship have been instrumental in my learning and growth.
