@@ -12,12 +12,15 @@ This e-commerce application provides a user-friendly interface for browsing and 
 - **Basic User Authentication:** Allows user registration and login.
 - **API Driven:** Backend is built as an API, allowing for scalability and future expansion.
 
+* **Email Notifications:** Order confirmations and other relevant emails are sent using Laravel's email functionality.
+
 ## Technologies Used
 
-- **Backend:** Laravel 12 (PHP Framework), Docker (for containerization)
+- **Backend:** Laravel 12 (PHP Framework), Docker (for containerization),
 - **Frontend:** Vue.js (JavaScript Framework), Node.js (JavaScript runtime environment)
 - **Database:** MySQL
-- **Other Dependencies:** Axios (for API requests), Pinia (for state management)
+- **Other Dependencies:** PHPUnit (for testing), Symfony Mailer uses SMTP by default(for emailing), Axios (for API requests), Pinia (for state management)
+- **Testing (Planned):** Cypress (for end-to-end testing, implementation in progress)
 
 ## Prerequisites
 
