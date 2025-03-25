@@ -17,7 +17,7 @@ This e-commerce application provides a user-friendly interface for browsing and 
 ## Technologies Used
 
 - **Backend:** Laravel 12 (PHP Framework), Docker (for containerization),
-- **Frontend:** Vue.js (JavaScript Framework), Node.js (JavaScript runtime environment)
+- **Frontend:** Vue.js (JavaScript Framework), Node.js (JavaScript runtime environment), Bootstrap 5 (for styling)
 - **Database:** MySQL
 - **Other Dependencies:** PHPUnit (for testing), Symfony Mailer uses SMTP by default(for emailing), Axios (for API requests), Pinia (for state management)
 - **Testing (Planned):** Cypress (for end-to-end testing, implementation in progress)
@@ -92,3 +92,7 @@ SOFTWARE.
 - Pinia is used for managing the global state of the application, such as the shopping cart.
 - Docker is used for containerization, simplifying the setup and deployment process.
 - If using docker, configure the .env file with the database configuration for docker.
+- PHPUnit is used for writing and running unit tests for the Laravel backend.
+- Cypress will be implemented soon for end-to-end testing of the application's user interface.
+- Laravel's built-in email functionality (using Symfony Mailer via SMTP by default) is used to send order confirmations and other email notifications. Ensure your `.env` file is configured with the correct email settings.
+- Bootstrap 5 is used for styling the frontend components.
