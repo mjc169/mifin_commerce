@@ -4,7 +4,10 @@
       <TopNav />
     </div>
   </header>
-  <RouterView />
+
+  <div class="my-5 container-fluid">
+    <RouterView />
+  </div>
 </template>
 
 <script setup>

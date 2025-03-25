@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div class="container">
     <div class="card">
       <div class="card-header">
         <h4 class="text-success">
@@ -24,5 +24,4 @@
 
   const cartStore = useCartStore();
   const { cart, loading, error } = storeToRefs(cartStore);
-
 </script>
