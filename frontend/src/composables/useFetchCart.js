@@ -1,5 +1,6 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
 export function useFetchCart() {
     const cart = ref([]);
@@ -27,6 +28,15 @@ export function useFetchCart() {
     };
   
     onMounted(fetchCart); // Fetch cart when the store is mounted
-  
+    
+    const route = useRoute();
+    watch(
+      () => route.path, // Watch the route path
+      (newPath) => {
+        if (newPath === '/myCart') {
+          fetchCart();
+        }
+      }
+    );
     return { cart, loading, error };
 }
