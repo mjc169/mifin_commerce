@@ -10,7 +10,7 @@ export function useFetchCart() {
       loading.value = true;
       error.value = null;
       try {
-        const token = "1|Jy2Vdg8rFMq2CYXfTYvdfjSDaVC5j757RraIffhqad83deb6"; // TODO: create a login feature
+        const token = localStorage.getItem('authToken');
 
         const response = await axios.get('/api/cart', {
           headers: {
