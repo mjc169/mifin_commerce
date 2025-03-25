@@ -6,30 +6,29 @@ This project is built using Laravel 12 for the backend API and Vue.js for the fr
 
 This e-commerce application provides a user-friendly interface for browsing and purchasing products. Key features include:
 
-* **Product Catalog:** Displays a list of available products with details such as images, descriptions, and prices.
-* **Shopping Cart:** Allows users to add and manage items in their cart.
-* **Checkout Process:** Guides users through a simplified checkout process, including order confirmation.
-* **Basic User Authentication:** Allows user registration and login.
-* **API Driven:** Backend is built as an API, allowing for scalability and future expansion.
+- **Product Catalog:** Displays a list of available products with details such as images, descriptions, and prices.
+- **Shopping Cart:** Allows users to add and manage items in their cart.
+- **Checkout Process:** Guides users through a simplified checkout process, including order confirmation.
+- **Basic User Authentication:** Allows user registration and login.
+- **API Driven:** Backend is built as an API, allowing for scalability and future expansion.
 
 ## Technologies Used
 
-* **Backend:** Laravel 12 (PHP Framework), Docker (for containerization)
-* **Frontend:** Vue.js (JavaScript Framework), Node.js (JavaScript runtime environment)
-* **Database:** MySQL
-* **Other Dependencies:** Axios (for API requests), Pinia (for state management)
+- **Backend:** Laravel 12 (PHP Framework), Docker (for containerization)
+- **Frontend:** Vue.js (JavaScript Framework), Node.js (JavaScript runtime environment)
+- **Database:** MySQL
+- **Other Dependencies:** Axios (for API requests), Pinia (for state management)
 
 ## Prerequisites
 
 Before running this project, ensure you have the following installed:
 
-* **PHP:** Version 8.2 or higher
-* **Composer:** Dependency Manager for PHP
-* **Node.js:** JavaScript runtime environment
-* **npm or Yarn:** Package managers for Node.js
-* **MySQL:** Database server
-* **Docker:** Containerization platform (optional, but recommended)
-
+- **PHP:** Version 8.2 or higher
+- **Composer:** Dependency Manager for PHP
+- **Node.js:** JavaScript runtime environment
+- **npm or Yarn:** Package managers for Node.js
+- **MySQL:** Database server
+- **Docker:** Containerization platform (optional, but recommended)
 
 ## Installation
 
@@ -49,13 +48,13 @@ The database structure is defined within the Laravel migrations located in the `
 
 ## Contributing
 
-Thank you for your interest in contributing to this project! I'd like to extend a special thanks to my senior developers for their invaluable guidance and support throughout the development process. Their expertise and mentorship have been instrumental in my learning and growth.
+Thank you for your interest in contributing to this project! I'd like to extend a special thanks to my co-developers for their invaluable guidance and support throughout the development process. Their expertise and mentorship have been instrumental in my learning and growth.
 
 If you'd like to contribute, please follow these guidelines:
 
-* Fork the repository and create a new branch for your feature or bug fix.
-* Ensure your code adheres to the project's coding standards.
-* Submit a pull request with a clear description of your changes.
+- Fork the repository and create a new branch for your feature or bug fix.
+- Ensure your code adheres to the project's coding standards.
+- Submit a pull request with a clear description of your changes.
 
 ## License
 
@@ -83,10 +82,10 @@ SOFTWARE.
 
 ## Additional Notes
 
-* Ensure your `.env` file has the correct database credentials.
-* The frontend uses Axios to communicate with the Laravel API.
-* The checkout process is a simplified example and may require further development for a production environment.
-* To enable user authentication, make sure to run the migration for users table.
-* Pinia is used for managing the global state of the application, such as the shopping cart.
-* Docker is used for containerization, simplifying the setup and deployment process.
-* If using docker, configure the .env file with the database configuration for docker.
+- Ensure your `.env` file has the correct database credentials.
+- The frontend uses Axios to communicate with the Laravel API.
+- The checkout process is a simplified example and may require further development for a production environment.
+- To enable user authentication, make sure to run the migration for users table.
+- Pinia is used for managing the global state of the application, such as the shopping cart.
+- Docker is used for containerization, simplifying the setup and deployment process.
+- If using docker, configure the .env file with the database configuration for docker.
