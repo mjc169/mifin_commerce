@@ -11,8 +11,7 @@ This e-commerce application provides a user-friendly interface for browsing and 
 - **Checkout Process:** Guides users through a simplified checkout process, including order confirmation.
 - **Basic User Authentication:** Allows user registration and login.
 - **API Driven:** Backend is built as an API, allowing for scalability and future expansion.
-
-* **Email Notifications:** Order confirmations and other relevant emails are sent using Laravel's email functionality.
+- **Email Notifications:** Order confirmations and other relevant emails are sent using Laravel's email functionality.
 
 ## Technologies Used
 
