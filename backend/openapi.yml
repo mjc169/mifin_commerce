@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: MIFIN E-Commerce System with Orders & Payments
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+tags: # Define your tags here
+  - name: Authentication
+    description: Operations related to user authentication.
+  - name: Products
+    description: Operations related to product management.
+  - name: Cart
+    description: Operations related to the shopping cart.
+  - name: Orders
+    description: Operations related to order processing.
+  - name: Users
+    description: Operations related to user information.
+paths:
+  /:
+    get:
+      tags:
+        - Authentication
+      summary: Welcome message
+      responses:
+        "200":
+          description: Welcome message response.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: Invalid credentials
+
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Retrieve a list of products
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /userInformation:
+    get:
+      tags:
+        - Users
+      summary: Get user information (requires authentication)
+      security:
+        - sanctum: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+        "401":
+          description: Unauthorized
+
+  /logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout (requires authentication)
+      security:
+        - sanctum: []
+      responses:
+        "200":
+          description: Successful logout
+        "401":
+          description: Unauthorized
+
+  /cart:
+    get:
+      tags:
+        - Cart
+      summary: Get user's cart (requires authentication)
+      security:
+        - sanctum: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CartItem"
+        "401":
+          description: Unauthorized
+
+  /cart/add/{product}:
+    post:
+      tags:
+        - Cart
+      summary: Add a product to the cart (requires authentication)
+      security:
+        - sanctum: []
+      parameters:
+        - in: path
+          name: product
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product added to cart
+        "401":
+          description: Unauthorized
+
+  /checkout:
+    post:
+      tags:
+        - Orders
+      summary: Checkout the cart and create an order (requires authentication)
+      security:
+        - sanctum: []
+      responses:
+        "200":
+          description: Checkout successful
+        "401":
+          description: Unauthorized
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+    CartItem:
+      type: object
+      properties:
+        product_id:
+          type: integer
+        quantity:
+          type: integer
+        product:
+          $ref: "#/components/schemas/Product"
+  securitySchemes:
+    sanctum:
+      type: http
+      scheme: bearer
+      bearerFormat: sanctum
