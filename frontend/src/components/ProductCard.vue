@@ -21,7 +21,7 @@
     				<span v-else-if="addToCartSuccess">Added to Cart</span>
 					<span v-else>Add to Cart</span>
 				</button>
-				<p v-if="addToCartError" class="error-message">{{ addToCartError }}</p>
+				
 			</div>
 		</div>
 	</div>
