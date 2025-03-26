@@ -70,38 +70,37 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    async function doCheckout() {
-      state().checkoutLoading = true;
-      state().checkoutError = null;
-      state().checkoutSuccess = false;
-      try {
+    async function doCheckout(formData) {
+        state().checkoutLoading = true;
+        state().checkoutError = null;
+        state().checkoutSuccess = false;
+        try {
           const token = localStorage.getItem('authToken');
-          const response = await axios.post('/api/checkout', {}, {
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              }
+          const response = await axios.post('/api/checkout', formData, { // Pass formData here
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           });
-
+    
           if (response.data) {
-              // Handle successful checkout, e.g., clear the cart
-              //state().cartItems = [];
-              fetchCartRefresh(); // Refresh the fetched cart to reflect the empty state
-              state().checkoutSuccess = true;
+            fetchCartRefresh();
+            state().checkoutSuccess = true;
           }
-
+    
           state().checkoutLoading = false;
-      } catch (err) {
+        } catch (err) {
           state().checkoutError = err.response?.data?.message || 'Failed to process checkout';
           state().checkoutLoading = false;
           throw err;
-      }
-  }
+        }
+    }
 
   return {
     cart,
       loading,
       error,
       addToCart,
-      removeToCart
+      removeToCart,
+      doCheckout
   };
 });

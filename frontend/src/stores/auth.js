@@ -43,6 +43,7 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.removeItem('authToken'); // or sessionStorage
                 this.loading = false;
             } catch (error) {
+
                 this.error = error.response?.data?.message || 'Logout failed';
                 this.loading = false;
                 throw error;
