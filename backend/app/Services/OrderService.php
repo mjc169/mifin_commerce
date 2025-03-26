@@ -6,11 +6,19 @@ use App\Models;
 
 class OrderService
 {
-    public function createOrder(Models\User $user, $totalAmount, Models\Cart $cart): Models\Order
+    public function createOrder(Models\User $user, $totalAmount, Models\Cart $cart, array $addressData): Models\Order
     {
         $order = new Models\Order;
         $order->user_id = $user->id;
         $order->total_amount = $totalAmount;
+
+        $order->name = $user->name;
+        $order->email = $user->email;
+        $order->address = $addressData['address'];
+        $order->city = $addressData['city'];
+        $order->state = $addressData['state'];
+        $order->zip = $addressData['zip'];
+
         $order->save();
 
         foreach ($cart->cartItems as $cartItem) {

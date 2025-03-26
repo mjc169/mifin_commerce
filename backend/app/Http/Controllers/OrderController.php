@@ -27,11 +27,24 @@ class OrderController extends Controller
         $cart = $this->cartService->getUserCart($request->user());
 
         if (!$cart) {
-            throw new \Exception('Cart is empty', 400);
+            return response()->json(['message' => 'Cart is empty'], 400);
         }
 
+        $request->validate([
+            'address' => 'string',
+            'city' => 'string|max:255',
+            'state' => 'string|max:255',
+            'zip' => 'string|max:20',
+        ]);
+
         try {
-            $order = $this->checkoutService->processCheckout($request->user());
+            $order = $this->checkoutService->processCheckout($request->user(), $request->only([
+                'address',
+                'city',
+                'state',
+                'zip',
+            ]));
+
             $config = $this->getOrderInformation($order);
             $this->emailService->sendMail($config);
 

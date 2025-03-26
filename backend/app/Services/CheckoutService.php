@@ -19,7 +19,7 @@ class CheckoutService
         $this->orderService = $orderService;
     }
 
-    public function processCheckout(Models\User $user): Models\Order
+    public function processCheckout(Models\User $user, array $addressData): Models\Order
     {
         $cart = $this->cartService->getUserCart($user);
 
@@ -36,7 +36,7 @@ class CheckoutService
         DB::beginTransaction();
 
         try {
-            $order = $this->orderService->createOrder($user, $totalAmount, $cart);
+            $order = $this->orderService->createOrder($user, $totalAmount, $cart, $addressData);
 
             $this->userBalanceService->deductBalance($user, $totalAmount);
             $this->cartService->clearCart($cart);

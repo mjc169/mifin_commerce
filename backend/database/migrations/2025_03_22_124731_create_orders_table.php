@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Nullable for guest carts
-            $table->decimal('total_amount', 10, 2); // 12 total digits, 2 decimal places
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Nullable for guest orders
+            $table->string('name')->nullable(); // Customer Name
+            $table->string('email')->nullable(); // Customer Email
+            $table->string('address')->nullable(); // Customer Address
+            $table->string('city')->nullable(); // Customer City
+            $table->string('state')->nullable(); // Customer State/Province
+            $table->string('zip')->nullable(); // Customer Zip/Postal Code
+            $table->decimal('total_amount', 10, 2);
             $table->timestamps();
         });
     }
