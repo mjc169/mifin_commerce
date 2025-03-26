@@ -1,11 +1,11 @@
 <template>
   <template v-if="cart && cart.cartItems && cart.cartItems.length > 0">
     <div class="mt-3 text-end">
-      <strong>Total: {{ cartTotal }}</strong>
+      <strong>Cart Total Amount: {{ cartTotal }}</strong>
     </div>
     <div class="mt-3 mb-5 text-end">
-      <button class="btn btn-danger ms-2">Empty Cart</button>
-      <button class="btn btn-primary ms-2">Proceed to Checkout</button>
+      <button class="btn btn-danger ms-2" @click="notWorking">Empty Cart</button>
+      <button class="btn btn-primary ms-2" @click="goToCheckoutPage">Proceed to Checkout</button>
     </div>
 
     <div
@@ -38,6 +38,12 @@
 <script setup>
 import CartItem from './CartItem.vue';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const goToCheckoutPage = () => {
+  router.push("/checkout");
+};
 
 const props = defineProps({
   cart: {
@@ -54,4 +60,9 @@ const cartTotal = computed(() => {
 
   return 0; // Return 0 if cart or cartItems is undefined
 });
+
+const notWorking = () => {
+  alert("Not yet working");
+};
+
 </script>

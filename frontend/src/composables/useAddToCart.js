@@ -1,4 +1,3 @@
-// src/composables/useAddToCart.js
 import { useCartStore } from '@/stores/cart';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';

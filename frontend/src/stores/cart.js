@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useFetchCart } from '@/composables/useFetchCart';
 import axios from 'axios';
-import { watch, computed } from 'vue';
+import { watch, computed, ref } from 'vue';
 
 export const useCartStore = defineStore('cart', () => {
   const {
@@ -17,35 +17,60 @@ export const useCartStore = defineStore('cart', () => {
       error: null
   });
 
-  const cart = computed(() => state().cartItems);
-  const loading = computed(() => state().loading || fetchLoading.value);
-  const error = computed(() => state().error || fetchError.value);
+  const cart = ref([]);
+  const loading = computed(() => fetchLoading.value); 
+  const error = computed(() => fetchError.value);  
 
-  async function addToCart(product) {
-      state().loading = true;
-      state().error = null;
-      try {
-          const token = localStorage.getItem('authToken');
-          const response = await axios.post(`/api/cart/add/${product.id}`, {}, {
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              }
-          });
+  // Watch for changes in fetchedCart and update cartItems
+  watch(fetchedCart, (newCart) => {
+    cart.value = newCart || []; // Update local cartItems when fetchedCart changes
+  }, { deep: true }); // Use deep watch if your cart items are complex objects
 
-          if (response.data) {
-              //do something
-          }
+    async function addToCart(product) {
+        state().loading = true;
+        state().error = null;
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await axios.post(`/api/cart/add/${product.id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
 
-          state().loading = false;
-          state().success = true;
-      } catch (err) {
-          state().error = err.response?.data?.message || 'Failed to add product to cart';
-          state().loading = false;
-          throw err;
-      }
-  }
+            fetchCartRefresh(); // Refresh the cart after adding
 
-  async function doCheckout() {
+            state().loading = false;
+            state().success = true;
+        } catch (err) {
+            state().error = err.response?.data?.message || 'Failed to add product to cart';
+            state().loading = false;
+            throw err;
+        }
+    }
+
+    async function removeToCart(product) {
+        state().loading = true;
+        state().error = null;
+        try {
+            const token = localStorage.getItem('authToken');
+            await axios.post(`/api/cart/remove/${product.id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+
+            fetchCartRefresh(); // Refresh the cart after adding
+
+            state().loading = false;
+            state().success = true;
+        } catch (err) {
+            state().error = err.response?.data?.message || 'Failed to add product to cart';
+            state().loading = false;
+            throw err;
+        }
+    }
+
+    async function doCheckout() {
       state().checkoutLoading = true;
       state().checkoutError = null;
       state().checkoutSuccess = false;
@@ -73,9 +98,10 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   return {
-      cart,
+    cart,
       loading,
       error,
-      addToCart
+      addToCart,
+      removeToCart
   };
 });

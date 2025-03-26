@@ -16,12 +16,22 @@
 	  <td>
 		{{ `$${(parseInt(product.price) * cartItem.quantity).toFixed(2)}` }}
 	  </td>
-	  <td><button class="btn btn-warning ms-2">Remove</button></td>
+	  <td>
+		<button
+			class="btn btn-warning ms-2"
+			@click="handleRemoveToCart(product)"
+			:disabled="removingToCart"
+		  >
+			<span v-if="removingToCart">Removing...</span>
+			<span v-else>Remove</span>
+		  </button>
+	</td>
 	</tr>
   </template>
   
   <script setup>
   import { computed } from 'vue';
+  import { useRemoveToCart } from '@/composables/useRemoveToCart';
   const props = defineProps({
 	  cartItem: {
 		  type: Object,
@@ -30,5 +40,6 @@
   });
   
   const product = computed(() => props.cartItem.product);
+  const { handleRemoveToCart, removingToCart, removeToCartError, removeToCartSuccess } = useRemoveToCart();
   </script>
   

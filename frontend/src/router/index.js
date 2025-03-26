@@ -38,6 +38,11 @@ const router = createRouter({
             name: 'logout',
             component: LogoutView,
         },
+        {
+            path: '/checkout',
+            name: 'checkout',
+            component: () => import('../views/MyCart/Checkout.vue'),
+        },
     ],
 })
 
