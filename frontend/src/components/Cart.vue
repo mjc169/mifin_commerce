@@ -13,10 +13,12 @@
     >
       <table class="table table-bordered">
         <thead>
-          <th scope="col">Image</th>
-          <th scope="col">Product</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Action</th>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Action</th>
+          </tr>
         </thead>
         <tbody>
           <CartItem
