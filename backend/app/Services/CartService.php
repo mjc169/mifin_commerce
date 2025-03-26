@@ -42,6 +42,21 @@ class CartService
         return $cartItem;
     }
 
+    public function removeProductToCart(Models\User $user, string $productId): void
+    {
+        $product = Models\Product::find($productId);
+
+        if (!$product) {
+            throw new Exception('Product not found', 404);
+        }
+
+        $cart = Models\Cart::firstOrCreate(['user_id' => $user->id]);
+
+        Models\CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $product->id)
+            ->delete();
+    }
+
     public function calculateCartTotal(Models\Cart $cart): float
     {
         return $cart->cartItems->sum(function (Models\CartItem $cartItem) {

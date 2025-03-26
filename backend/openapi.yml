@@ -146,6 +146,24 @@ paths:
           description: Product added to cart
         "401":
           description: Unauthorized
+  /cart/remove/{product}:
+    post:
+      tags:
+        - Cart
+      summary: Remove a product to the cart (requires authentication)
+      security:
+        - sanctum: []
+      parameters:
+        - in: path
+          name: product
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Removed successful
+        "401":
+          description: Unauthorized
 
   /checkout:
     post:
