@@ -35,8 +35,10 @@
           class="btn btn-primary btn-lg"
           style="padding-left: 2.5rem; padding-right: 2.5rem"
           @click="handleLogin"
+          :disabled="isLogging"
         >
-          Login
+          <span v-if="!isLogging">Login</span>
+			    <span v-else>Logging in...</span>
         </button>
       </div>
   
@@ -53,15 +55,18 @@
   
   const email = ref('');
   const password = ref('');
-  
+  const isLogging = ref(false);
   const handleLogin = async () => {
   try {
+    isLogging.value = true;
       clearAuthError();
       await login({ email: email.value, password: password.value });
       // Redirect or perform other actions after successful login
   } catch (err) {
       // Error is handled by the composable, but you can add more logic here if needed.
       console.warn("HANDLE LOGIN", err);
+  } finally {
+    isLogging.value = false;
   }
   };
   </script>
